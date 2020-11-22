@@ -30,9 +30,9 @@ router.get('/:mySearchP', function (req, res) {
                 jsonBody = JSON.parse(body);
                 //save in db
 
-                // for (var adress of jsonBody.results) {
-                //     db.add(adress.place, adress.name, adress.formatted_address);
-                // }
+                for (var adress of jsonBody.results) {
+                    add(req.params["mySearchP"], adress.name, adress.formatted_address);
+                }
                 res.send(body);
             }
             else {
@@ -46,5 +46,12 @@ router.get('/:mySearchP', function (req, res) {
         });
 
 })
+function add(str, name, place) {
+    Add.create({
+        search_string: str,
+        name_place: name,
+        address_place: place,
+    })
+}
 
 module.exports = router;

@@ -27,18 +27,6 @@ function testDb() {
             console.log('Unable to connect to the database:', err);
         });
 }
-//add to db
-function add(search, name, place) {
-    // db.sync({ force: false })
-    //     .then(() => Add.create({
-    //         search_string: search,
-    //         name_place: name,
-    //         address_place: place,
-    //     }).then((user) => {
-    //         console.log(user);
-    //     }));
-}
 
 module.exports.db = db;
 module.exports.testDb = testDb;
-module.exports.add = add;
