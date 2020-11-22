@@ -24,10 +24,15 @@ router.get('/:mySearchP', function (req, res) {
     console.log("mySearchP");
     request(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${myQuery}&key=AIzaSyBxvqGxEvb6ZBnyRTM8isBU_6O-MAfuNiQ`
         , function (error, response, body) {
-            if (body != null)
-                // fs.writeFile('response.json', body);
+            if (body != null) {
+                res.send(body);
+            }
+            else {
+                res.send("error!");
+            }
+            // fs.writeFile('response.json', body);
 
-                console.error('error:', error); // Print the error if one occurred
+            console.error('error:', error); // Print the error if one occurred
             console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
             console.log('body:', body); // Print the HTML for the Google homepage.
         });

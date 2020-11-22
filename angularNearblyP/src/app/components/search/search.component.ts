@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { Place } from 'src/app/models/place';
 import { SearchService } from 'src/app/services/search.service';
 
+import { map } from 'rxjs/operators';
+import { observable } from 'rxjs';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -12,18 +14,26 @@ export class SearchComponent implements OnInit {
 
   constructor(private router: Router, private searchService: SearchService) { }
   place: string;
+  i: number = 0;
   places: Place[] = [];
   ngOnInit(): void {
   }
+
   search() {
     debugger;
-    this.searchService.search(this.place).subscribe(res => {
+    this.searchService.search(this.place).pipe(
+      map(res => {
+        res = res.results;
+        return res.map(item => ({ search_string: this.place, name_place: item.name, address_place: item.formatted_address }))
+      })
+
+    ).subscribe(res => {
+      this.searchService.change(res);
       console.log(res);
-      this.places = res;
-    }, err => {
-      console.log(err);
     })
-    debugger;
-    // this.router.navigate(["/results"]);
+
   }
+
+  // this.router.navigate(["/results"]);
 }
+

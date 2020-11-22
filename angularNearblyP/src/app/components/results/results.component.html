@@ -25,25 +25,9 @@
     <div class="p-3 mb-2 bg-transparent text-dark row">
         <div class="form-group col-md-3"></div>
         <div class="list-group col-md-6">
-            <div class="rounded gray">
-                <p class="text-white">my place</p>
-                <p class="address">my address</p>
-            </div>
-            <div class="rounded gray">
-                <p class="text-white">my place</p>
-                <p class="address">my address</p>
-            </div>
-            <div class="rounded gray">
-                <p class="text-white">my place</p>
-                <p class="address">my address</p>
-            </div>
-            <div class="rounded gray">
-                <p class="text-white">my place</p>
-                <p class="address">my address</p>
-            </div>
-            <div class="rounded gray">
-                <p class="text-white">my place</p>
-                <p class="address">my address</p>
+            <div *ngFor="let p of nearblyPlaces" class="rounded gray row">
+                <p class="text-white">{{p.name_place}}</p>
+                <p class="address">{{p.address_place}}</p>
             </div>
         </div>
         <div class="form-group col-md-3"></div>
