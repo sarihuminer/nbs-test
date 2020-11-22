@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
       })
 
     ).subscribe(res => {
-      this.searchService.change(res);
+      this.searchService.change(res.slice(0, 5));
       console.log(res);
     })
 
