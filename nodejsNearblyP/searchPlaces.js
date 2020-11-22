@@ -21,8 +21,9 @@ router.get('/all', function (req, res) {
 router.get('/:mySearchP', function (req, res) {
     myQuery = "";
     myQuery = req.params["mySearchP"].split(" ").join("+");
+    const encodedURI = encodeURI(myQuery)
     console.log("mySearchP");
-    request(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${myQuery}&key=AIzaSyBxvqGxEvb6ZBnyRTM8isBU_6O-MAfuNiQ`
+    request(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedURI}&key=AIzaSyBxvqGxEvb6ZBnyRTM8isBU_6O-MAfuNiQ&language =iw`
         , function (error, response, body) {
             if (body != null) {
                 res.send(body);
