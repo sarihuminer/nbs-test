@@ -3,7 +3,8 @@
         <div class="form-group col-md-4"></div>
         <div class="form-group col-md-4">
             <small id="placeHelp" class=" form-text text-muted">מה תרצו לחפס?</small>
-            <input type="text" class="form-control rounded shadow p-3 mb-5 bg-white rounded" id="searchPlace">
+            <input [(ngModel)]="place" name="p" type="text"
+                class="form-control rounded shadow p-3 mb-5 bg-white rounded" id="searchPlace">
             <small id="placeHelp" class=" form-text text-muted">_ _ _ _ _ _ _ _ _ _ _ _ _ </small>
             <button (click)="search()" type="submit" id="searchBtn"
                 class="btn btn-danger rounded shadow-lg p-3 mb-5 rounded">הצג
