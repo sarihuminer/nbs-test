@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-
+// const Add = require('../models/address');
 // connect to db
 const db = new Sequelize('NBCTest', 'postgres', 'sms0548598227', {
     host: 'localhost',
@@ -15,7 +15,14 @@ const db = new Sequelize('NBCTest', 'postgres', 'sms0548598227', {
 
 
 });
-
+// //add data
+// function add(str, name, place) {
+//     Add.create({
+//         search_string: str,
+//         name_place: name,
+//         address_place: place,
+//     })
+// }
 
 //test db
 function testDb() {
@@ -30,3 +37,4 @@ function testDb() {
 
 module.exports.db = db;
 module.exports.testDb = testDb;
+// module.exports.add=add;

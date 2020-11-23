@@ -20,15 +20,19 @@ const Address = database.db.define('NBCTest', {
         type: Sequelize.STRING,
         allowNull: true,
     },
-
+    count: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        defaultValue: 1,
+    },
 });
-// database.db.sync({ force: true })
-//     .then(() => Address.create({
-//         search_string: "פיצה רבי עקיבא 68 בני ברק",
-//         name_place: "פיצה מקס",
-//         address_place: "רבי עקיבא 68",
-//     }).then((user) => {
-//         console.log(user);
-//     }));
+database.db.sync({ force: true })
+    .then(() => Address.create({
+        search_string: "פיצה רבי עקיבא 68 בני ברק",
+        name_place: "פיצה מקס",
+        address_place: "רבי עקיבא 68",
+    }).then((user) => {
+        console.log(user);
+    }));
 
 module.exports = Address;

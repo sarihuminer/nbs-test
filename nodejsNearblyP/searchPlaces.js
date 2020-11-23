@@ -5,6 +5,7 @@ var router = express.Router();
 const db = require('./config/db');
 const Add = require('./models/address');
 const request = require('request');
+const { update } = require('./models/address');
 fs = require('fs');
 // instance of GooglePlaces Class;
 Places.apiKey = "AIzaSyBxvqGxEvb6ZBnyRTM8isBU_6O-MAfuNiQ";
@@ -24,13 +25,20 @@ router.get('/:mySearchP', function (req, res) {
     myQuery = req.params["mySearchP"].split(" ").join("+");
     const encodedURI = encodeURI(myQuery)
     console.log("mySearchP");
+
+    //check if there is data
+    valuesFromDB = search(req.params["mySearchP"]);
+    if (valuesFromDB != null) {
+        updateDetails(req.params["mySearchP"], valuesFromDB);
+        //res.send(valuesFromDB);
+    }
     request(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodedURI}&radius=12&key=AIzaSyBxvqGxEvb6ZBnyRTM8isBU_6O-MAfuNiQ&language =iw`
         , function (error, response, body) {
             if (body != null) {
                 jsonBody = JSON.parse(body);
                 //save in db
-
-                for (var adress of jsonBody.results) {
+                jsonBody = jsonBody.results.slice(0, 5);
+                for (var adress of jsonBody) {
                     add(req.params["mySearchP"], adress.name, adress.formatted_address);
                 }
                 res.send(body);
@@ -46,11 +54,32 @@ router.get('/:mySearchP', function (req, res) {
         });
 
 })
+//add data
 function add(str, name, place) {
     Add.create({
         search_string: str,
         name_place: name,
         address_place: place,
+    })
+}
+
+//search if there is data
+function search(str) {
+    return Add.findAll({
+        where: {
+            search_string: str
+        }
+    });
+}
+
+//update if there is data
+function updateDetails(str, valuesFromDB) {
+    Add.update({
+        count: valuesFromDB + 1
+    }, {
+        where: {
+            search_string: str
+        }
     })
 }
 
